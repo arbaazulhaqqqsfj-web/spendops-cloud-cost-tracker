@@ -42,3 +42,9 @@ SpendOps is not just a normal frontend dashboard. It is designed around real clo
 - Working with AWS Free Tier limits
 - Planning serverless backend architecture
 - Preparing for cloud monitoring and alerting
+
+*Live Demo*
+View the deployed project here: https://spendops-6gq37orkq-arbaazulhaqqqsfj-5695s-projects.vercel.app/
+
+*Current Limitation*
+This version uses mock AWS cost data. It does not connect to a real AWS account yet.
