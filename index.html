@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpendOps | Cloud Cost Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="SpendOps home">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>SpendOps</strong>
+          <small>Cloud cost tracker</small>
+        </span>
+      </a>
+
+      <nav aria-label="Dashboard navigation">
+        <a href="#overview" class="active">Overview</a>
+        <a href="#services">Services</a>
+        <a href="#free-tier">Free Tier</a>
+        <a href="#alerts">Alerts</a>
+        <a href="#cloud-plan">Cloud Plan</a>
+      </nav>
+
+      <div class="sidebar-card">
+        <span class="label">Project stage</span>
+        <strong>Frontend MVP</strong>
+        <p>Mock cost data now. AWS APIs later.</p>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Student cloud finance dashboard</p>
+          <h1>Track AWS spend before it becomes a surprise bill.</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="refreshData" type="button">Refresh data</button>
+          <button id="themeToggle" type="button">Theme</button>
+        </div>
+      </header>
+
+      <section id="overview" class="summary-grid" aria-label="Cost summary">
+        <article class="metric-card primary-card">
+          <span class="label">Estimated monthly spend</span>
+          <strong id="currentSpend">$0.00</strong>
+          <p id="spendStatus">Loading cost status...</p>
+        </article>
+        <article class="metric-card">
+          <span class="label">Monthly budget</span>
+          <div class="budget-control">
+            <strong id="monthlyBudget">$25.00</strong>
+            <button id="editBudget" type="button">Edit</button>
+          </div>
+          <div class="meter" aria-hidden="true">
+            <span id="budgetMeter"></span>
+          </div>
+        </article>
+        <article class="metric-card">
+          <span class="label">Forecast</span>
+          <strong id="forecastSpend">$0.00</strong>
+          <p>Projected end-of-month bill</p>
+        </article>
+        <article class="metric-card">
+          <span class="label">Risk level</span>
+          <strong id="riskLevel">Safe</strong>
+          <p id="riskMessage">No urgent cost risk detected.</p>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel wide" id="services">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">AWS services</p>
+              <h2>Service cost breakdown</h2>
+            </div>
+            <select id="serviceFilter" aria-label="Filter services">
+              <option value="all">All services</option>
+              <option value="compute">Compute</option>
+              <option value="storage">Storage</option>
+              <option value="database">Database</option>
+              <option value="network">Network</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Category</th>
+                  <th>Usage</th>
+                  <th>Monthly cost</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="serviceRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="alerts">
+          <div class="panel-header compact">
+            <div>
+              <p class="eyebrow">Alerts</p>
+              <h2>Cost warnings</h2>
+            </div>
+          </div>
+          <div class="alert-list" id="alertList"></div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel" id="free-tier">
+          <div class="panel-header compact">
+            <div>
+              <p class="eyebrow">Free Tier</p>
+              <h2>Usage limits</h2>
+            </div>
+          </div>
+          <div class="tier-list" id="tierList"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="eyebrow">Recommendations</p>
+              <h2>What to fix next</h2>
+            </div>
+          </div>
+          <div class="recommendation-list" id="recommendationList"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="cloud-plan">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Cloud architecture</p>
+            <h2>How this frontend becomes a real AWS project</h2>
+          </div>
+          <span class="status-pill">Internship-ready path</span>
+        </div>
+
+        <div class="architecture">
+          <div class="arch-node">
+            <span>Frontend</span>
+            <strong>S3 + CloudFront</strong>
+          </div>
+          <div class="connector"></div>
+          <div class="arch-node">
+            <span>API</span>
+            <strong>API Gateway</strong>
+          </div>
+          <div class="connector"></div>
+          <div class="arch-node">
+            <span>Logic</span>
+            <strong>Lambda</strong>
+          </div>
+          <div class="connector"></div>
+          <div class="arch-node">
+            <span>Data</span>
+            <strong>DynamoDB</strong>
+          </div>
+          <div class="connector"></div>
+          <div class="arch-node">
+            <span>Ops</span>
+            <strong>CloudWatch</strong>
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <article>
+            <span>01</span>
+            <strong>Static dashboard</strong>
+            <p>Build with HTML, CSS, and JavaScript using mock AWS cost data.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Cloud hosting</strong>
+            <p>Deploy the frontend to S3 and serve it globally through CloudFront.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>Serverless API</strong>
+            <p>Use API Gateway and Lambda to return budget and service usage data.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <strong>Persistent data</strong>
+            <p>Store budgets, alerts, and usage history in DynamoDB.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
