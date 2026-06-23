@@ -1,6 +1,6 @@
 # SpendOps - Cloud Cost Tracker
 
-[Live Demo](https://spendops-dun.vercel.app) | [Backend Architecture](./ARCHITECTURE.md) | [Deployment Checklist](./DEPLOYMENT-CHECKLIST.md)
+[Live Demo](https://spendops-dun.vercel.app) | [Backend Architecture](./backend/ARCHITECTURE.md) | [Deployment Checklist](./backend/DEPLOYMENT-CHECKLIST.md)
 
 SpendOps is a student-focused cloud cost dashboard for understanding AWS
 spending, service usage, budget risk, and Free Tier consumption. It began as a
