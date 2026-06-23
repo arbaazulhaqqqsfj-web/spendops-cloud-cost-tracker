@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: SpendOps serverless cost API
+
+Globals:
+  Function:
+    Runtime: nodejs22.x
+    Timeout: 5
+    MemorySize: 128
+
+Resources:
+  SpendOpsApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - "*"
+        AllowHeaders:
+          - Content-Type
+        AllowMethods:
+          - GET
+          - OPTIONS
+
+  SpendOpsCostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: spendops-cost-api
+      CodeUri: lambda/
+      Handler: index.handler
+      Environment:
+        Variables:
+          COST_TABLE_NAME: !Ref SpendOpsCostTable
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref SpendOpsCostTable
+      Events:
+        GetCosts:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpendOpsApi
+            Path: /costs
+            Method: GET
+
+  SpendOpsCostTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: spendops-cost-history
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: accountId
+          AttributeType: S
+        - AttributeName: recordDate
+          AttributeType: S
+      KeySchema:
+        - AttributeName: accountId
+          KeyType: HASH
+        - AttributeName: recordDate
+          KeyType: RANGE
+
+Outputs:
+  CostApiUrl:
+    Description: Public HTTP API endpoint for SpendOps
+    Value: !Sub "https://${SpendOpsApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/costs"
+  CostTableName:
+    Description: DynamoDB table for daily cost snapshots
+    Value: !Ref SpendOpsCostTable

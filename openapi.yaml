@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: SpendOps Cost API
+  version: 1.0.0
+  description: Returns cloud-cost dashboard data for the SpendOps frontend.
+paths:
+  /costs:
+    get:
+      summary: Get the current cost summary
+      responses:
+        "200":
+          description: Cost data returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CostResponse"
+components:
+  schemas:
+    Service:
+      type: object
+      required: [name, category, usage, cost, status]
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        usage:
+          type: string
+        cost:
+          type: number
+        status:
+          type: string
+          enum: [safe, warning, danger]
+    CostResponse:
+      type: object
+      required: [source, generatedAt, currency, budget, spend, forecast, services]
+      properties:
+        source:
+          type: string
+          example: lambda-mock
+        generatedAt:
+          type: string
+          format: date-time
+        currency:
+          type: string
+          example: USD
+        budget:
+          type: number
+        spend:
+          type: number
+        forecast:
+          type: number
+        services:
+          type: array
+          items:
+            $ref: "#/components/schemas/Service"
